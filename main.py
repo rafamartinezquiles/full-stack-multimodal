@@ -1,0 +1,14 @@
+from src.ingestion.pdf_loader import extract_text_from_pdf
+from src.extraction.entity_extractor import extract_entities
+import json
+
+def main():
+    pdf_path = "data/employee_handbook"  
+    text = extract_text_from_pdf(pdf_path)
+    print("✅ Extracted Text:\n", text[:500], "\n---")
+
+    entities_json = extract_entities(text)
+    print("✅ Extracted Entities:\n", entities_json)
+
+if __name__ == "__main__":
+    main()
