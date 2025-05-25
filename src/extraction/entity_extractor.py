@@ -1,6 +1,7 @@
-from langchain.chat_models import ChatOpenAI
+from langchain_openai import ChatOpenAI
 from langchain.prompts import PromptTemplate
 from langchain.chains import LLMChain
+import os
 
 prompt_template = PromptTemplate(
     input_variables=["text"],
@@ -22,10 +23,12 @@ Text:
 """
 )
 
-llm = ChatOpenAI(temperature=0, model="gpt-4")  # or "gpt-3.5-turbo"
-
-entity_chain = LLMChain(llm=llm, prompt=prompt_template)
-
-def extract_entities(text: str) -> dict:
-    result = entity_chain.run(text=text)
-    return result
+def extract_entities(text: str) -> str:
+    openai_api_key = os.getenv("OPENAI_API_KEY")  
+    llm = ChatOpenAI(
+        temperature=0,
+        model="gpt-4",
+        openai_api_key=openai_api_key
+    )
+    entity_chain = LLMChain(llm=llm, prompt=prompt_template)
+    return entity_chain.run(text=text)
