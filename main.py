@@ -2,6 +2,7 @@ from src.ingestion.pdf_loader import extract_text_from_pdf
 from src.graph.relation_inferencer import infer_relationships
 from src.extraction.entity_extractor import extract_entities
 from src.graph.graph_writer import KnowledgeGraph
+from src.rag.graph_qa import answer_question
 from dotenv import load_dotenv
 import os
 import json
@@ -27,6 +28,10 @@ def main():
     print("Relationships added to Neo4j")
     kg.close()
     print("Entities written to Neo4j")
+    print("\nAsking question over graph...")
+    question = "What concepts are advocated by HR?"
+    answer_question(question)
+
 
 if __name__ == "__main__":
     main()

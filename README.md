@@ -76,3 +76,8 @@ NEO4J_USERNAME="your_username"
 NEO4J_PASSWORD="your_password"
 ```
 
+Another thing to do in case you are on Windows is to go to the following [link](https://github.com/UB-Mannheim/tesseract/wiki) and install the Tesseract library on your computer. Once that is done, take note of the location of the *tesseract.exe* application, and inside the *image_loader.py* file located in *src/ingestion*, modify the following line:
+
+```bash
+pytesseract.pytesseract.tesseract_cmd = "your_path"
+```
