@@ -30,7 +30,7 @@ def main():
 
     image_path = "data/policy_note.jpg" 
     if os.path.exists(image_path):
-        print("\n🖼️ Extracting text from image...")
+        print("\nExtracting text from image...")
         image_text = extract_text_from_image(image_path)[:3000]
         print("Image Text:\n", image_text[:500], "\n---")
 
