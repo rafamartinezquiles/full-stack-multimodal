@@ -16,13 +16,14 @@ multimodal-rag-kg/
 |__ data/
 |   |__ employee_handbook.pdf
 |__ embeddings/            
-|__ graph/                
 |__ notebooks/
 |__ src/
 |   |__ ingestion/
 |   |   |__ pdf_loader.py
 |   |__ extraction/
 |   |   |__ entity_extractor.py
+|   |__ graph/
+|   |   |__ graph_writer.py
 |__ ui/                   
 |__ .env
 |__ main.py
