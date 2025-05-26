@@ -81,3 +81,26 @@ Another thing to do in case you are on Windows is to go to the following [link](
 ```bash
 pytesseract.pytesseract.tesseract_cmd = "your_path"
 ```
+
+Finally, you’ll need to visit the following [link](https://www.gyan.dev/ffmpeg/builds/) to download the latest version of FFmpeg. This step is essential because Whisper, the tool used for transcribing audio, depends on FFmpeg to process audio files. If FFmpeg is not installed or properly configured on your system, Whisper will throw an error.
+
+After downloading, unzip the compressed folder to a location of your choice (e.g., C:\ffmpeg). Once extracted, you must add the FFmpeg binary directory to your system's PATH so that it can be accessed globally from any terminal or application.
+
+Follow these steps to add FFmpeg to your system environment variables:
+
+1. Open the Start Menu and search for Environment Variables.
+
+2. Click on "Edit the system environment variables".
+
+3. In the window that appears, click the "Environment Variables..." button.
+
+4. Under the System variables section, find and select the variable named Path, then click Edit.
+
+5. Click New, and add the following path (assuming this is where you unzipped FFmpeg):
+
+```bash
+C:\ffmpeg\bin
+```
+ 6. Click OK on all open dialogs to save the changes.
+
+ Once this is done, FFmpeg will be properly installed and ready to use by Whisper or any other software that depends on it.

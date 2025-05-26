@@ -4,6 +4,7 @@ from src.ingestion.image_loader import extract_text_from_image
 from src.extraction.entity_extractor import extract_entities
 from src.graph.graph_writer import KnowledgeGraph
 from src.rag.graph_qa import answer_question
+from src.ingestion.audio_loader import extract_text_from_audio  # ✅ NEW
 from dotenv import load_dotenv
 import os
 import json
@@ -45,6 +46,24 @@ def main():
         kg.add_relationships(image_relationships)
         kg.close()
         print("Entities and relationships from image written to Neo4j")
+
+    audio_path = "data/hr_policies.mp3"
+    if os.path.exists(audio_path):
+        print("\nExtracting text from audio...")
+        audio_text = extract_text_from_audio(audio_path)[:3000]
+        print("Audio Text:\n", audio_text[:500], "\n---")
+
+        audio_entities_json = extract_entities(audio_text)
+        print("Extracted Audio Entities:\n", audio_entities_json)
+
+        audio_entities = json.loads(audio_entities_json)["entities"]
+
+        kg = KnowledgeGraph()
+        kg.add_entities(audio_entities, os.path.basename(audio_path))
+        audio_relationships = infer_relationships(audio_entities)
+        kg.add_relationships(audio_relationships)
+        kg.close()
+        print("Entities and relationships from audio written to Neo4j")
 
     print("\nAsking question over graph...")
     question = "What concepts are advocated by HR?"
