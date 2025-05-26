@@ -6,6 +6,8 @@ from src.graph.graph_writer import KnowledgeGraph
 from src.rag.graph_qa import answer_question
 from src.rag.vector_indexer import index_documents, retrieve_similar 
 from src.ingestion.audio_loader import extract_text_from_audio
+from src.ingestion.video_loader import extract_audio_text_from_video
+from src.ingestion.frame_extractor import extract_key_frames
 from dotenv import load_dotenv
 import os
 import json
@@ -69,6 +71,32 @@ def main():
         print("Entities and relationships from audio written to Neo4j")
     else:
         audio_text = ""
+
+    video_path = "data/policy_briefing.mp4"
+    if os.path.exists(video_path):
+        print("\nExtracting text from video audio...")
+        video_text = extract_audio_text_from_video(video_path)[:3000]
+        print("Video Text:\n", video_text[:500], "\n---")
+
+        video_entities_json = extract_entities(video_text)
+        print("Extracted Video Entities:\n", video_entities_json)
+
+        video_entities = json.loads(video_entities_json)["entities"]
+
+        kg = KnowledgeGraph()
+        kg.add_entities(video_entities, os.path.basename(video_path))
+        video_relationships = infer_relationships(video_entities)
+        kg.add_relationships(video_relationships)
+        kg.close()
+        print("Entities and relationships from video written to Neo4j")
+
+        frame_folder = "data/video_frames"
+        frames = extract_key_frames(video_path, frame_folder)
+        print(f"\nExtracted {len(frames)} key frames:")
+        for path in frames:
+            print(f" - {path}")
+    else:
+        video_text = ""
 
     print("\nAsking question over graph...")
     question = "What concepts are advocated by HR?"
