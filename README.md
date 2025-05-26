@@ -15,15 +15,15 @@ The aim is to demonstrate a functioning multimodal pipeline that:
 multimodal-rag-kg/
 |__ data/
 |   |__ employee_handbook.pdf
-|__ embeddings/            # vector store (planned)
-|__ graph/                 # Neo4j schema & queries (planned)
+|__ embeddings/            
+|__ graph/                
 |__ notebooks/
 |__ src/
 |   |__ ingestion/
 |   |   |__ pdf_loader.py
 |   |__ extraction/
 |   |   |__ entity_extractor.py
-|__ ui/                    # Optional Streamlit or notebook app
+|__ ui/                   
 |__ .env
 |__ main.py
 |__ README.md
@@ -62,4 +62,6 @@ It is essential to ensure that the .env file located in the root directory of th
 ```bash
 OPENAI_API_KEY="your_key"
 ```
+
+Tambien, para ser capaz de enlazar todo con neo4j, hemos de acudir al siguiente link que se encargara 
 
