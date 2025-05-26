@@ -1,4 +1,5 @@
 from src.ingestion.pdf_loader import extract_text_from_pdf
+from src.graph.relation_inferencer import infer_relationships
 from src.extraction.entity_extractor import extract_entities
 from src.graph.graph_writer import KnowledgeGraph
 from dotenv import load_dotenv
@@ -21,6 +22,9 @@ def main():
     # Push to Neo4j
     kg = KnowledgeGraph()
     kg.add_entities(entities, os.path.basename(pdf_path))
+    relationships = infer_relationships(entities)
+    kg.add_relationships(relationships)
+    print("Relationships added to Neo4j")
     kg.close()
     print("Entities written to Neo4j")
 
