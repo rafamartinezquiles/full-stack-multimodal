@@ -63,5 +63,11 @@ It is essential to ensure that the .env file located in the root directory of th
 OPENAI_API_KEY="your_key"
 ```
 
-Tambien, para ser capaz de enlazar todo con neo4j, hemos de acudir al siguiente link que se encargara 
+Tambien, para ser capaz de enlazar todo con neo4j, hemos de acudir al siguiente [link](https://login.neo4j.com/u/signup/identifier?state=hKFo2SBIZnpjXzJJZGlCSkY2aHFnVEQ5OWNLcVd4QVZtdGg2VaFur3VuaXZlcnNhbC1sb2dpbqN0aWTZIDN1TkxVWExQWHRDcVVHQXBXcXdyTXZfR2hvcWNUX0pro2NpZNkgV1NMczYwNDdrT2pwVVNXODNnRFo0SnlZaElrNXpZVG8) donde nos crearemos una cuenta y rellenaremos todos los campos que se nos soliciten. Una vez eso realizado, dejaremos el cloud provider y la region por defecto y entonces tendremos acceso a la cuenta. Se nos creara una instancia ya por defecto en el que se nos proporcionara un usuario y una contrasena que es muy importante recordarla para incluirla en nuestro codigo. Por tanto, cuando se haya creado la instancia, iremos a nuestras instancias, clicamos en connect, drivers y ahi tenemos el tercer campo que necesitamos la URI. Por tanto sustituimos en env los tres valores que tenemos de tal manera sin "":
+
+```bash
+NEO4J_URI="your_uri"
+NEO4J_USERNAME="your_username"
+NEO4J_PASSWORD="your_password"
+```
 
