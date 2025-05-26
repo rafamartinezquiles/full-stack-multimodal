@@ -4,7 +4,8 @@ from src.ingestion.image_loader import extract_text_from_image
 from src.extraction.entity_extractor import extract_entities
 from src.graph.graph_writer import KnowledgeGraph
 from src.rag.graph_qa import answer_question
-from src.ingestion.audio_loader import extract_text_from_audio  # ✅ NEW
+from src.rag.vector_indexer import index_documents, retrieve_similar 
+from src.ingestion.audio_loader import extract_text_from_audio
 from dotenv import load_dotenv
 import os
 import json
@@ -46,6 +47,8 @@ def main():
         kg.add_relationships(image_relationships)
         kg.close()
         print("Entities and relationships from image written to Neo4j")
+    else:
+        image_text = ""
 
     audio_path = "data/hr_policies.mp3"
     if os.path.exists(audio_path):
@@ -64,10 +67,29 @@ def main():
         kg.add_relationships(audio_relationships)
         kg.close()
         print("Entities and relationships from audio written to Neo4j")
+    else:
+        audio_text = ""
 
     print("\nAsking question over graph...")
     question = "What concepts are advocated by HR?"
     answer_question(question)
+
+    print("\nIndexing documents for RAG...")
+    docs = [text, image_text, audio_text]
+    metas = [
+        {"source": "employee_handbook.pdf"},
+        {"source": "policy_note.jpg"},
+        {"source": "hr_policies.mp3"}
+    ]
+    index_documents(docs, metas)
+
+    print("\nRunning semantic search...")
+    rag_query = "What is the purpose of PMDS and soft skills training?"
+    results = retrieve_similar(rag_query)
+
+    for r in results:
+        print(f"\nSource: {r.metadata['source']}")
+        print(r.page_content[:300], "\n---")
 
 if __name__ == "__main__":
     main()
