@@ -9,7 +9,7 @@ import os
 # - video_path: path to the input video file
 # - output_folder: where the extracted frames will be saved
 # - every_n_seconds: interval (in seconds) at which to extract frames 
-def extract_key_frames(video_path: str, output_folder: str, every_n_seconds: int = 5) -> list[str]:
+def extract_key_frames(video_path: str, output_folder: str, every_n_seconds: int = 20) -> list[str]:
     # Ensure the output directory exists; create it if it doesn't
     os.makedirs(output_folder, exist_ok=True)
 
