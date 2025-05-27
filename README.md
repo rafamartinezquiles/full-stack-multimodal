@@ -76,7 +76,7 @@ pip install -r requirements.txt
 To run this project successfully, follow these setup steps carefully:
 
 #### Configure your .env file
-At the root of the project, edit the .env file and ensure it includes the following environment variables:
+At the root of the project, edit the *.env* file and ensure it includes the following environment variables:
 
 ```bash
 OPENAI_API_KEY=your_openai_api_key
@@ -91,7 +91,9 @@ NEO4J_PASSWORD=your_neo4j_password
     2. Use default cloud provider/region.
     3. Once your instance is created, click “Connect” → “Drivers” to retrieve your URI, username, and password.
 
-
+#### Install Tesseract (for OCR) - *Windows Only*
+If you're on Windows, download and install [Tesseract](https://github.com/UB-Mannheim/tesseract/wiki) from this official build.
+After installation, locate the full path to *tesseract.exe* and update this line inside *src/ingestion/image_loader.py*:
 
 Another thing to do in case you are on Windows is to go to the following [link](https://github.com/UB-Mannheim/tesseract/wiki) and install the Tesseract library on your computer. Once that is done, take note of the location of the *tesseract.exe* application, and inside the *image_loader.py* file located in *src/ingestion*, modify the following line:
 
@@ -99,25 +101,25 @@ Another thing to do in case you are on Windows is to go to the following [link](
 pytesseract.pytesseract.tesseract_cmd = "your_path"
 ```
 
-Finally, you’ll need to visit the following [link](https://www.gyan.dev/ffmpeg/builds/) to download the latest version of FFmpeg. This step is essential because Whisper, the tool used for transcribing audio, depends on FFmpeg to process audio files. If FFmpeg is not installed or properly configured on your system, Whisper will throw an error.
+#### Install FFmpeg (for audio/video transcription)
+Whisper requires FFmpeg to process audio and video files. To install it:
 
-After downloading, unzip the compressed folder to a location of your choice (e.g., C:\ffmpeg). Once extracted, you must add the FFmpeg binary directory to your system's PATH so that it can be accessed globally from any terminal or application.
-
-Follow these steps to add FFmpeg to your system environment variables:
-
-1. Open the Start Menu and search for Environment Variables.
-
-2. Click on "Edit the system environment variables".
-
-3. In the window that appears, click the "Environment Variables..." button.
-
-4. Under the System variables section, find and select the variable named Path, then click Edit.
-
-5. Click New, and add the following path (assuming this is where you unzipped FFmpeg):
+1. Download the latest FFmpeg build from [gyan.dev](https://www.gyan.dev/ffmpeg/builds/).
+2. Unzip it *(e.g., to C:\ffmpeg)*.
+3. Add the binary path to your system PATH:
 
 ```bash
 C:\ffmpeg\bin
 ```
- 6. Click OK on all open dialogs to save the changes.
 
- Once this is done, FFmpeg will be properly installed and ready to use by Whisper or any other software that depends on it.
+**Steps to add it to system environment variables**
+
+- Search for "Environment Variables" in the Start Menu.
+- Click “Edit the system environment variables”.
+- In the new window, click “Environment Variables…”.
+- Under System Variables, select Path → click Edit → New → add the path above.
+- Click OK on all dialogs.
+
+Once done, FFmpeg will be accessible globally by Whisper and other tools.
+
+
