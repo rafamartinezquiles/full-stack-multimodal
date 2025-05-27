@@ -14,17 +14,27 @@ The aim is to demonstrate a functioning multimodal pipeline that:
 ```
 multimodal-rag-kg/
 |__ data/
-|   |__ employee_handbook.pdf
-|__ embeddings/            
-|__ notebooks/
+|   |__ sdg.mp3
+|   |__ sdg.mp4
+|   |__ sdg.pdf
+|   |__ sdg.png
 |__ src/
 |   |__ ingestion/
 |   |   |__ pdf_loader.py
+|   |   |__ audio_loader.py
+|   |   |__ frame_extractor.py
+|   |   |__ image_loader.py
+|   |   |__ video_loader.py
 |   |__ extraction/
 |   |   |__ entity_extractor.py
 |   |__ graph/
 |   |   |__ graph_writer.py
-|__ ui/                   
+|   |   |__ relation_inferencer.py
+|   |__ rag/
+|   |   |__ graph_qa.py
+|   |   |__ vector_indexer.py
+|   |__ vision/
+|   |   |__ llava_captioner.py
 |__ .env
 |__ main.py
 |__ README.md
