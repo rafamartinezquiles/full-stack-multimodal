@@ -144,7 +144,7 @@ def main():
 
     # ---------- 5. GRAPH QUESTION ANSWERING ----------
     print("\nAsking question over graph...")
-    question = "What concepts are advocated by HR?"  # Example natural-language query
+    question = "What is the relation between SDG1 and SDG2?"  # Example natural-language query
     answer_question(question)  # Executes a graph-based query using LLM or Cypher wrapper
 
     # ---------- 6. INDEX DOCUMENTS FOR RAG ----------
@@ -152,16 +152,16 @@ def main():
     # Combine all text sources (PDF, image OCR, audio, video) into vector index
     docs = [text, image_text, audio_text, video_text]
     metas = [
-        {"source": "employee_handbook.pdf"},
-        {"source": "policy_note.jpg"},
-        {"source": "hr_policies.mp3"},
-        {"source": "policy_briefing.mp4"}
+        {"source": "sdg.pdf"},
+        {"source": "sdg.jpg"},
+        {"source": "sdg.mp3"},
+        {"source": "sdg.mp4"}
     ]
     index_documents(docs, metas)
 
     # ---------- 7. RAG SEMANTIC QUERY ----------
     print("\nRunning semantic search...")
-    rag_query = "What is the purpose of PMDS and soft skills training?"
+    rag_query = "What is the purpose of the SDGS for the humanity?"
     results = retrieve_similar(rag_query)  # Retrieve semantically similar chunks
 
     # Show matched content with its corresponding source metadata
