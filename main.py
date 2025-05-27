@@ -20,7 +20,7 @@ load_dotenv()  # Load environment variables before processing begins
 def main():
     # ---------- 1. PDF INGESTION ----------
     # Load and extract up to 3000 characters from the input PDF document
-    pdf_path = "data/employee_handbook.pdf"
+    pdf_path = "data/sdg.pdf"
     text = extract_text_from_pdf(pdf_path)[:3000]  # Truncate for demo or initial prototyping
     print("Extracted Text:\n", text[:500], "\n---")  # Preview the first 500 characters
 
@@ -38,7 +38,7 @@ def main():
     print("Entities and relationships from PDF written to Neo4j")
 
     # ---------- 2. IMAGE INGESTION ----------
-    image_path = "data/policy_note.jpg" 
+    image_path = "data/sdg.png" 
     image_text = ""
     if os.path.exists(image_path):
         print("\nExtracting text from image...")
@@ -60,7 +60,7 @@ def main():
         print("Entities and relationships from image written to Neo4j")
 
     # ---------- 3. AUDIO INGESTION ----------
-    audio_path = "data/hr_policies.mp3"
+    audio_path = "data/sdg.mp3"
     audio_text = ""
     if os.path.exists(audio_path):
         print("\nExtracting text from audio...")
@@ -81,7 +81,7 @@ def main():
         print("Entities and relationships from audio written to Neo4j")
 
     # ---------- 4. VIDEO INGESTION ----------
-    video_path = "data/policy_briefing.mp4"
+    video_path = "data/sdg.mp4"
     video_text = ""
     if os.path.exists(video_path):
         print("\nExtracting text from video audio...")
