@@ -145,4 +145,17 @@ After the ingestion step, you can ask questions using either:
 Each answer will be accompanied by the source document it was derived from, ensuring full traceability.
 
 ### Terminal Execution (CLI Mode)
+To run the pipeline entirely from the command line, use:
 
+```bash
+python main.py
+```
+
+This mode is preconfigured to process sample files located in the *data/* folder (*sdg.pdf, sdg.png, sdg.mp3, sdg.mp4*). It performs the full ingestion, entity extraction, graph construction, semantic indexing, and query execution directly in the terminal.
+
+If you wish to use your own files:
+
+- Add your files to the *data/* directory.
+- Update the file paths inside *main.py* accordingly to reflect the new filenames.
+
+This approach is ideal for automated batch processing or headless deployments.
