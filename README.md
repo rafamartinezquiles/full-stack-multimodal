@@ -122,4 +122,27 @@ C:\ffmpeg\bin
 
 Once done, FFmpeg will be accessible globally by Whisper and other tools.
 
+## Types of use
+
+### Streamlit App
+To launch the interactive interface, simply run:
+
+```bash
+streamlit run app.py
+```
+
+This will open a local web page where you can upload any combination of *PDF, PNG, JPG, MP3, or MP4* files. Once uploaded, the system will automatically:
+
+- Extract and display a text preview from the file
+- Identify and list extracted entities and concepts
+- Ingest all structured information into the Neo4j knowledge graph
+
+After the ingestion step, you can ask questions using either:
+
+- **Graph QA:** Executes Cypher queries over the Neo4j graph to extract structured knowledge
+- **RAG:** Performs semantic search over indexed document content and provides context-rich answers
+
+Each answer will be accompanied by the source document it was derived from, ensuring full traceability.
+
+### Terminal Execution (CLI Mode)
 
