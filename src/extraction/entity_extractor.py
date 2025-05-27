@@ -11,19 +11,14 @@ import os
 # Define a structured prompt template to instruct the LLM on the extraction task
 # It asks to extract named entities and return them in a specific JSON format
 prompt_template = PromptTemplate(
-    input_variables=["text"],  
+    input_variables=["text"],
     template="""
 Extract all named entities (people, organizations, places, dates, and concepts) from the following text and return them in JSON format with this structure:
 
-{
-  "entities": [
-    {
-      "name": "...",
-      "type": "Person | Organization | Location | Date | Concept"
-    },
-    ...
-  ]
-}
+{{"entities": [
+  {{"name": "...", "type": "Person | Organization | Location | Date | Concept"}},
+  ...
+]}}
 
 Text:
 {text}
