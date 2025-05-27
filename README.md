@@ -1,6 +1,8 @@
 # Multimodal Knowledge Graph & RAG Pipeline for HR Content Understanding
 This project is a 72-hour technical challenge that implements a multimodal pipeline capable of ingesting text, extracting knowledge, and enabling intelligent search using Retrieval-Augmented Generation (RAG). It uses cutting-edge tools like LangChain, OpenAI, and Neo4j to build a searchable knowledge graph from unstructured documents like employee handbooks.
 
+![](images/app.png)
+
 ## Overview and Background
 
 The aim is to demonstrate a functioning multimodal pipeline that:
