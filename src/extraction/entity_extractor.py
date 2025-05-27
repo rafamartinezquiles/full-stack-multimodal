@@ -46,4 +46,4 @@ def extract_entities(text: str) -> str:
     entity_chain = LLMChain(llm=llm, prompt=prompt_template)
     
     # Run the chain with the given text and return the output string 
-    return entity_chain.run(text=text)
+    return entity_chain.run({"text": text})
