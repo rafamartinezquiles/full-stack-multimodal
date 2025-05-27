@@ -98,7 +98,7 @@ query = st.text_input("Ask a question (Graph QA or RAG):")
 if query:
     col1, col2 = st.columns(2)
     with col1:
-        st.markdown("### 📊 Graph QA Answer")
+        st.markdown("### Graph QA Answer")
         try:
             graph_answer = answer_question(query)
             st.success(graph_answer)
@@ -106,7 +106,7 @@ if query:
             st.error(f"Graph QA failed: {e}")
 
     with col2:
-        st.markdown("### 🔎 RAG Semantic Answer")
+        st.markdown("### RAG Semantic Answer")
         try:
             if rag_texts:
                 index_documents(rag_texts, rag_metas)
