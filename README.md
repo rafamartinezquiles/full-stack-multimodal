@@ -159,3 +159,38 @@ If you wish to use your own files:
 - Update the file paths inside *main.py* accordingly to reflect the new filenames.
 
 This approach is ideal for automated batch processing or headless deployments.
+
+## Workflow Explanation
+
+### Data Ingestion Layer
+The Data Ingestion Layer is responsible for converting raw, multimodal inputs into unified, machine-readable text formats. This includes extracting text from documents, images, audio, and video content using specialized tools and models. Below is a breakdown of each supported modality and the underlying logic used to process them.
+
+#### PDF & Text Extraction
+Textual content from .pdf and .txt files is extracted using PyMuPDF (fitz). The function extract_text_from_pdf() opens the document, iterates through each page, and aggregates all the text content into a single string.
+
+#### Image OCR (PNG, JPG)
+Image files are processed using Tesseract OCR, accessed through the pytesseract wrapper. The function *extract_text_from_image()* loads an image with PIL and applies optical character recognition to extract readable text.
+
+#### Audio Transcription (MP3)
+Audio files are transcribed using OpenAI's Whisper model, a state-of-the-art speech recognition system. The *extract_text_from_audio()* function loads a pre-trained Whisper model *(e.g., "base")* and applies it to transcribe the given audio file.
+
+#### Video Processing (MP4)
+Video files are processed in two stages:
+
+1. Speech Transcription using Whisper (via moviepy for audio extraction).
+2. Key Frame Extraction using OpenCV.
+
+These modular ingestion components ensure that no matter the input format — scanned document, spoken audio, narrated video, or raw PDF, the pipeline can extract meaningful text to be passed downstream for entity extraction, knowledge graph construction, and question answering.
+
+### Entity & Relationship Extraction
+Once raw text is extracted from any modality, it is passed into a two-stage LLM-powered pipeline to identify named entities and infer relationships between them. This stage transforms unstructured text into a structured representation suitable for graph construction.
+
+#### Named Entity Extraction
+Named entities such as people, organizations, locations, dates, and abstract concepts are extracted using OpenAI’s gpt-4 model via LangChain's LLMChain. The model is prompted using a structured template that instructs it to return a list of entities in a strict JSON format. This approach ensures high precision and consistency in entity extraction across modalities.
+
+#### Relationsip Inference
+After entity extraction, pairwise relationships are inferred between entities using a second LLM-based process. For every pair of entities, the system prompts the model to suggest a relationship label *(e.g., "FOUNDED", "BASED_IN")*. If no logical connection is detected, the model returns *"NONE"* and the pair is ignored.
+
+### Knowledge Graph Construction
+### Graph Question Answering
+### Multimodal RAG Pipeline
