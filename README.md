@@ -191,6 +191,26 @@ Named entities such as people, organizations, locations, dates, and abstract con
 #### Relationsip Inference
 After entity extraction, pairwise relationships are inferred between entities using a second LLM-based process. For every pair of entities, the system prompts the model to suggest a relationship label *(e.g., "FOUNDED", "BASED_IN")*. If no logical connection is detected, the model returns *"NONE"* and the pair is ignored.
 
+This step enriches the graph structure by providing semantic connections between entities, enabling deeper reasoning and graph-based question answering.
+
 ### Knowledge Graph Construction
+Once entities and their relationships are extracted, they are persistently stored in a Neo4j knowledge graph. This structured graph enables efficient semantic search, reasoning, and graph-based question answering across all processed documents. A dedicated KnowledgeGraph class manages the connection to the Neo4j database and exposes two main methods:
+
+- **add_entities(entities, source_file):**  Each entity is added to the graph as a node labeled Entity and linked to a corresponding Document node via a :MENTIONS relationship. This preserves traceability of all knowledge elements by associating them with their originating document.
+
+- **add_relationships(relationships):** All inferred relationships between entities are created as directional edges. The relationship type is sanitized (converted to uppercase, alphanumeric-safe) to ensure valid Cypher syntax. For each relationship triple (source, relation, target), a MERGE operation links the two entities.
+
+Internally, this is wrapped inside a Python method that uses the Neo4j driver. This design ensures that the graph remains clean, consistent, and queryable, allowing for both Cypher-based queries and high-level semantic retrieval through RAG.
+
 ### Graph Question Answering
+To complement Retrieval-Augmented Generation, this system supports direct graph-based question answering by translating natural language questions into Cypher queries, allowing semantic reasoning over the structured Neo4j knowledge graph. Using GPT-4 and LangChain, a prompt template guides the LLM to generate valid Cypher queries that align with the graph schema:
+
+- **Nodes:** :Entity (with name and type), and :Document (with filename)
+- **Relationships:** :MENTIONS, :ADVOCATES, :MANAGES, etc.
+
 ### Multimodal RAG Pipeline
+The Multimodal RAG Pipeline enables users to ask natural language questions and receive intelligent, context-aware answers derived from various document formats including text, images, audio, and video. After each document is ingested and converted into raw text, the content is broken down into overlapping chunks to ensure context is preserved across sections. Each chunk is then enriched with metadata such as the source filename, allowing for clear traceability of the information.
+
+These text chunks are embedded using OpenAI's semantic embedding model and indexed within a Chroma vector database. This process transforms unstructured content into a searchable, vectorized representation that captures the meaning of the text rather than relying solely on keywords. The entire vector store is persisted locally, making the system reusable without requiring reprocessing every time.
+
+When a user submits a question, the system performs a semantic similarity search over the indexed content to retrieve the most relevant chunks. These are then presented along with their original document sources, allowing users to understand not only the answer but also where it came from. This hybrid approach combines the interpretability of source-based retrieval with the flexibility of semantic understanding, making it highly effective for navigating complex, multimodal knowledge.
