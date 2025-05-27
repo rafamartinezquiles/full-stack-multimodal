@@ -12,6 +12,8 @@ The aim is to demonstrate a functioning multimodal pipeline that:
 - Stores data as a knowledge graph (Neo4j)
 - Enables semantic question answering via a RAG pipeline
 
+![](images/workflow.png)
+
 ## Table of Contents
 ```
 multimodal-rag-kg/
