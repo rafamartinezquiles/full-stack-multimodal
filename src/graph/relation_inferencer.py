@@ -7,21 +7,21 @@ from langchain.prompts import PromptTemplate
 # Used to generate all pairwise combinations of entities
 from itertools import combinations
 
-# Load environment variables (e.g., API keys) from .env file
+# Load environment variables from .env file
 from dotenv import load_dotenv
 
-# Access system environment variables (e.g., OPENAI_API_KEY)
+# Access system environment variables 
 import os
 
 # Load environment variables into runtime
 load_dotenv()
 
-# Initialize the GPT-4 language model with deterministic behavior (temperature=0)
+# Initialize the GPT-4 language model with deterministic behavior 
 llm = ChatOpenAI(model="gpt-4", temperature=0)
 
 # Define a prompt template for suggesting relationships between two entities
 # The model is asked to:
-# - Suggest one relationship label (verb, uppercase, no spaces)
+# - Suggest one relationship label 
 # - Return "NONE" if no reasonable link can be found
 prompt = PromptTemplate(
     input_variables=["a", "b", "type_a", "type_b"],
@@ -36,9 +36,9 @@ Only respond with one label. If no clear link exists, respond with: NONE.
 
 # Define the function to infer relationships between all pairs of entities
 def infer_relationships(entities):
-    relations = []  # List to collect inferred (source, relation, target) triples
+    relations = []  
 
-    # Generate all unordered pairs of entities (combinations of 2)
+    # Generate all unordered pairs of entities 
     for a, b in combinations(entities, 2):
         # Fill the prompt with entity names and types
         prompt_text = prompt.format(

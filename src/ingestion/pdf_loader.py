@@ -1,4 +1,4 @@
-# Import PyMuPDF (also known as fitz) for reading and extracting text from PDF files
+# Import PyMuPDF for reading and extracting text from PDF files
 import fitz  
 
 # Import pathlib's Path class for working with file paths 

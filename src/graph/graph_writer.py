@@ -6,7 +6,7 @@ import os
 from dotenv import load_dotenv
 import re
 
-# Load environment variables from .env file (used for Neo4j credentials)
+# Load environment variables from .env file 
 load_dotenv()
 
 # Fetch Neo4j credentials and connection URI from environment variables
@@ -70,7 +70,7 @@ class KnowledgeGraph:
         """
         with self.driver.session() as session:
             for source, rel_type, target in relationships:
-                safe_rel = sanitize_relationship_type(rel_type)  # Ensure the relationship is Cypher-safe
+                safe_rel = sanitize_relationship_type(rel_type) 
                 query = f"""
                 MATCH (a:Entity {{name: $a}})
                 MATCH (b:Entity {{name: $b}})

@@ -4,8 +4,7 @@ import whisper
 # Import moviepy for handling video and audio extraction
 import moviepy.editor as mp
 
-# Load the Whisper model (base version)
-# You can use other sizes: "tiny", "small", "medium", "large" depending on accuracy/performance needs
+# Load the Whisper model 
 model = whisper.load_model("base")
 
 # Define a function to extract and transcribe speech from a video file
@@ -22,5 +21,5 @@ def extract_audio_text_from_video(video_path: str) -> str:
     # Transcribe the extracted audio using Whisper
     result = model.transcribe(audio_path)
 
-    # Return the transcribed text with leading/trailing whitespace removed
+    # Return the transcribed text with trailing whitespace removed
     return result["text"].strip()

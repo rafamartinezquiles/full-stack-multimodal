@@ -1,4 +1,4 @@
-# Import the Whisper library for automatic speech recognition (ASR)
+# Import the Whisper library for automatic speech recognition 
 import whisper
 
 # Load the pre-trained Whisper model (using the "base" size variant)
@@ -10,5 +10,5 @@ def extract_text_from_audio(audio_path: str) -> str:
     # Use the Whisper model to transcribe the audio at the given path
     result = model.transcribe(audio_path)
     
-    # Return only the transcribed text, removing any leading/trailing whitespace
+    # Return only the transcribed text, removing any leading whitespace
     return result["text"].strip()

@@ -5,13 +5,13 @@ from langchain_openai import ChatOpenAI
 from langchain.prompts import PromptTemplate
 from langchain.chains import LLMChain
 
-# Used to access environment variables (e.g., OpenAI API key)
+# Used to access environment variables 
 import os
 
 # Define a structured prompt template to instruct the LLM on the extraction task
 # It asks to extract named entities and return them in a specific JSON format
 prompt_template = PromptTemplate(
-    input_variables=["text"],  # The template accepts a single input variable called "text"
+    input_variables=["text"],  
     template="""
 Extract all named entities (people, organizations, places, dates, and concepts) from the following text and return them in JSON format with this structure:
 
@@ -32,7 +32,7 @@ Text:
 
 # Define the entity extraction function using the OpenAI model
 def extract_entities(text: str) -> str:
-    # Retrieve OpenAI API key from environment variable (set in .env or system)
+    # Retrieve OpenAI API key from environment variable 
     openai_api_key = os.getenv("OPENAI_API_KEY")  
     
     # Initialize the ChatOpenAI model (GPT-4) with no randomness (temperature=0)
@@ -45,5 +45,5 @@ def extract_entities(text: str) -> str:
     # Wrap the LLM and prompt template into a callable chain
     entity_chain = LLMChain(llm=llm, prompt=prompt_template)
     
-    # Run the chain with the given text and return the output string (JSON-formatted)
+    # Run the chain with the given text and return the output string 
     return entity_chain.run(text=text)
